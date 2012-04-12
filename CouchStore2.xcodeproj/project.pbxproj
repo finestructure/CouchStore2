@@ -16,6 +16,7 @@
 		DD36DCC81536E7A500DAD320 /* CouchStore2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */; };
 		DD36DCD21536E7EF00DAD320 /* CouchCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
 		DD36DCD61536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCD51536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m */; };
+		DD36DCDC1536EDAA00DAD320 /* CouchCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,19 @@
 			remoteInfo = CouchStore2;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DD36DCDB1536ED9500DAD320 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DD36DCDC1536EDAA00DAD320 /* CouchCocoa.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DD36DCA11536E7A500DAD320 /* CouchStore2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CouchStore2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +188,7 @@
 				DD36DC9D1536E7A500DAD320 /* Frameworks */,
 				DD36DC9E1536E7A500DAD320 /* Headers */,
 				DD36DC9F1536E7A500DAD320 /* Resources */,
+				DD36DCDB1536ED9500DAD320 /* CopyFiles */,
 			);
 			buildRules = (
 			);

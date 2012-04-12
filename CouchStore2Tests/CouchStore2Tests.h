@@ -8,6 +8,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface CouchStore2Tests : SenTestCase
-
+@interface CouchStore2Tests : SenTestCase {
+  NSPersistentStoreCoordinator *coord;
+  NSManagedObjectContext *ctx;
+  NSManagedObjectModel *model;
+  NSPersistentStore *store;
+}
 @end
