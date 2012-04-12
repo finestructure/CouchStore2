@@ -16,7 +16,6 @@
 		DD36DCC81536E7A500DAD320 /* CouchStore2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */; };
 		DD36DCD21536E7EF00DAD320 /* CouchCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
 		DD36DCD61536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCD51536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m */; };
-		DD36DCDA1536E9A500DAD320 /* CouchStore2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCA11536E7A500DAD320 /* CouchStore2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +66,6 @@
 			files = (
 				DD36DCBB1536E7A500DAD320 /* SenTestingKit.framework in Frameworks */,
 				DD36DCBC1536E7A500DAD320 /* Cocoa.framework in Frameworks */,
-				DD36DCDA1536E9A500DAD320 /* CouchStore2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
