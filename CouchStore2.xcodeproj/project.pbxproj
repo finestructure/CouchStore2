@@ -33,16 +33,16 @@
 		DD36DCA71536E7A500DAD320 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		DD36DCA81536E7A500DAD320 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DD36DCA91536E7A500DAD320 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		DD36DCAC1536E7A500DAD320 /* CouchStore2-Info.plist */ = {isa = PBXFileReference; path = "CouchStore2-Info.plist"; sourceTree = "<group>"; };
+		DD36DCAC1536E7A500DAD320 /* CouchStore2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CouchStore2-Info.plist"; sourceTree = "<group>"; };
 		DD36DCAE1536E7A500DAD320 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DD36DCB01536E7A500DAD320 /* CouchStore2-Prefix.pch */ = {isa = PBXFileReference; path = "CouchStore2-Prefix.pch"; sourceTree = "<group>"; };
-		DD36DCB11536E7A500DAD320 /* CouchStore2.h */ = {isa = PBXFileReference; path = CouchStore2.h; sourceTree = "<group>"; };
+		DD36DCB01536E7A500DAD320 /* CouchStore2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CouchStore2-Prefix.pch"; sourceTree = "<group>"; };
+		DD36DCB11536E7A500DAD320 /* CouchStore2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouchStore2.h; sourceTree = "<group>"; };
 		DD36DCB21536E7A500DAD320 /* CouchStore2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouchStore2.m; sourceTree = "<group>"; };
 		DD36DCB91536E7A500DAD320 /* CouchStore2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CouchStore2Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD36DCBA1536E7A500DAD320 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		DD36DCC21536E7A500DAD320 /* CouchStore2Tests-Info.plist */ = {isa = PBXFileReference; path = "CouchStore2Tests-Info.plist"; sourceTree = "<group>"; };
+		DD36DCC21536E7A500DAD320 /* CouchStore2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CouchStore2Tests-Info.plist"; sourceTree = "<group>"; };
 		DD36DCC41536E7A500DAD320 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DD36DCC61536E7A500DAD320 /* CouchStore2Tests.h */ = {isa = PBXFileReference; path = CouchStore2Tests.h; sourceTree = "<group>"; };
+		DD36DCC61536E7A500DAD320 /* CouchStore2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouchStore2Tests.h; sourceTree = "<group>"; };
 		DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouchStore2Tests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
