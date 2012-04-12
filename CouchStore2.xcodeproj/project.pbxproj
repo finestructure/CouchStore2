@@ -12,9 +12,11 @@
 		DD36DCB31536E7A500DAD320 /* CouchStore2.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCB21536E7A500DAD320 /* CouchStore2.m */; };
 		DD36DCBB1536E7A500DAD320 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCBA1536E7A500DAD320 /* SenTestingKit.framework */; };
 		DD36DCBC1536E7A500DAD320 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCA41536E7A500DAD320 /* Cocoa.framework */; };
-		DD36DCBF1536E7A500DAD320 /* CouchStore2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCA11536E7A500DAD320 /* CouchStore2.framework */; };
 		DD36DCC51536E7A500DAD320 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD36DCC31536E7A500DAD320 /* InfoPlist.strings */; };
 		DD36DCC81536E7A500DAD320 /* CouchStore2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */; };
+		DD36DCD21536E7EF00DAD320 /* CouchCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
+		DD36DCD61536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCD51536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m */; };
+		DD36DCDA1536E9A500DAD320 /* CouchStore2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCA11536E7A500DAD320 /* CouchStore2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,9 @@
 		DD36DCC41536E7A500DAD320 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD36DCC61536E7A500DAD320 /* CouchStore2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouchStore2Tests.h; sourceTree = "<group>"; };
 		DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouchStore2Tests.m; sourceTree = "<group>"; };
+		DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchCocoa.framework; sourceTree = "<group>"; };
+		DD36DCD31536E80300DAD320 /* AtomicStoreCacheNodeSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicStoreCacheNodeSubclass.h; sourceTree = "<group>"; };
+		DD36DCD51536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicStoreCacheNodeSubclass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD36DCA51536E7A500DAD320 /* Cocoa.framework in Frameworks */,
+				DD36DCD21536E7EF00DAD320 /* CouchCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +67,7 @@
 			files = (
 				DD36DCBB1536E7A500DAD320 /* SenTestingKit.framework in Frameworks */,
 				DD36DCBC1536E7A500DAD320 /* Cocoa.framework in Frameworks */,
-				DD36DCBF1536E7A500DAD320 /* CouchStore2.framework in Frameworks */,
+				DD36DCDA1536E9A500DAD320 /* CouchStore2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +96,7 @@
 		DD36DCA31536E7A500DAD320 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */,
 				DD36DCA41536E7A500DAD320 /* Cocoa.framework */,
 				DD36DCBA1536E7A500DAD320 /* SenTestingKit.framework */,
 				DD36DCA61536E7A500DAD320 /* Other Frameworks */,
@@ -110,6 +117,8 @@
 		DD36DCAA1536E7A500DAD320 /* CouchStore2 */ = {
 			isa = PBXGroup;
 			children = (
+				DD36DCD31536E80300DAD320 /* AtomicStoreCacheNodeSubclass.h */,
+				DD36DCD51536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m */,
 				DD36DCB11536E7A500DAD320 /* CouchStore2.h */,
 				DD36DCB21536E7A500DAD320 /* CouchStore2.m */,
 				DD36DCAB1536E7A500DAD320 /* Supporting Files */,
@@ -264,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD36DCB31536E7A500DAD320 /* CouchStore2.m in Sources */,
+				DD36DCD61536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +367,10 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CouchStore2/CouchStore2-Prefix.pch";
@@ -371,6 +385,10 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CouchStore2/CouchStore2-Prefix.pch";
@@ -383,7 +401,10 @@
 		DD36DCCF1536E7A500DAD320 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CouchStore2/CouchStore2-Prefix.pch";
 				INFOPLIST_FILE = "CouchStore2Tests/CouchStore2Tests-Info.plist";
@@ -395,7 +416,10 @@
 		DD36DCD01536E7A500DAD320 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CouchStore2/CouchStore2-Prefix.pch";
 				INFOPLIST_FILE = "CouchStore2Tests/CouchStore2Tests-Info.plist";
