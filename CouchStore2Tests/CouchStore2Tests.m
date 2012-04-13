@@ -15,13 +15,10 @@
 {
     [super setUp];
     // first, make sure there are no left overt things in the db
-    [CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
+    //[CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
 
-    //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-    //model = [NSManagedObjectModel mergedModelFromBundles:nil];
     model = [[NSManagedObjectModel alloc] init];
     
-    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"TypeTestingEntity" inManagedObjectContext:ctx];
     entity = [[NSEntityDescription alloc] init];
     [entity setName:@"testData"];
     [entity setManagedObjectClassName:@"testData"];
@@ -102,11 +99,7 @@
     [super tearDown];
 }
 
-- (void)testBasicRead {
-//[self addTestStoreToCoordinator:coord];
-//NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-//[context setPersistentStoreCoordinator:coord];
-    
+- (void)testBasicRead {    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
@@ -156,17 +149,25 @@ STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", erro
 //
 // bring up a second stack to check what we saved
 //
-#if 0
-NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-//[self addTestStoreToCoordinator:stack2];
-NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
-[context2 setPersistentStoreCoordinator:stack2];
-
-NSArray *results2 = [context2 executeFetchRequest:request error:nil];
-STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
-id testObject2 = [results2 objectAtIndex:0];
-/*
-STAssertEqualObjects([testObject2 valueForKey:@"binaryValue"], testData, @"Stored and retreived data not equal");
+#if 1
+    NSLog(@"bring up a second stack");
+    NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    //[self addTestStoreToCoordinator:stack2];
+    NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
+    [context2 setPersistentStoreCoordinator:stack2];
+    [stack2 addPersistentStoreWithType:@"CouchStore"
+                                configuration:nil
+                                          URL:[NSURL URLWithString: @"http://ucouchbase.local:5984"]
+                                      options:nil
+                                        error:nil];
+    
+    NSArray *results2 = [context2 executeFetchRequest:request error:nil];
+    NSLog(@"result count %@", results2 );
+    STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
+    id testObject2 = [results2 objectAtIndex:0];
+    NSLog(@"testObject2 %@", testObject2);
+    /*
+     STAssertEqualObjects([testObject2 valueForKey:@"binaryValue"], testData, @"Stored and retreived data not equal");
 */
     STAssertEqualObjects([testObject2 valueForKey:@"boolValue"], testBoolValue, @"Stored and retreived boolValue not equal");
 /*STAssertEqualObjects([testObject2 valueForKey:@"dateValue"], testDateValue, @"Stored and retreived dateValue not equal");

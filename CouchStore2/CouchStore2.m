@@ -99,7 +99,7 @@
         NSMutableDictionary *setProps = [NSMutableDictionary dictionary];
         [setProps addEntriesFromDictionary:[props valueForKey:@"values"]];
         [setProps addEntriesFromDictionary:[props valueForKey:@"relations"]];
-        //[newNode setPropertyCacheData: setProps];
+        [newNode setPropertyCacheData: setProps];
         NSLog(@"props %@", props);
         [newNode setRevId:[props valueForKey:@"_rev"]];
 		[cacheNodes addObject: newNode];
