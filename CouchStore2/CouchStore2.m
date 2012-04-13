@@ -207,6 +207,9 @@
         if (![op wait])
         {
             NSLog(@"error saving %@: %@", refObj, op.error);
+            if (error != nil)
+                *error = op.error;
+            return NO;
         }
         
     }
