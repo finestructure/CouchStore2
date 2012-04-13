@@ -80,6 +80,7 @@
     model = nil;
     //[super tearDown];
     
+    [CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
 #if 0
     // manually drop database
     CouchServer *server = [[CouchServer alloc] initWithURL:[NSURL URLWithString:@"http://ucouchbase.local:5984"]];

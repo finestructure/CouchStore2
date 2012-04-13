@@ -22,6 +22,19 @@
 @end
 
 @implementation CouchStore
++ (BOOL) dropDatabase: (NSURL *)url
+{
+    CouchServer *server = [[CouchServer alloc] initWithURL:url];
+    CouchDatabase *database = [server databaseNamed: @"storeunittest"];
+    
+    // drop database?
+    RESTOperation *op1=[database drop];
+    if (![op1 wait]) 
+    {
+        NSLog( @"Error creating database: %@", op1.error);
+    };
+    return YES;
+}
 
 - (id)initWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator configurationName:(NSString *)configurationName URL:(NSURL *)url options:(NSDictionary *)options
 {

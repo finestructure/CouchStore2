@@ -31,6 +31,7 @@
 //- (NSDictionary *)metadata;
 + (NSDictionary *)metadataForPersistentStoreWithURL:(NSURL *)url error:(NSError **)error;
 + (BOOL)setMetadata:(NSDictionary *)metadata forPersistentStoreWithURL:(NSURL *)url error:(NSError **)error;
++ (BOOL) dropDatabase:(NSURL *)url;
 
 
 - (NSDictionary *)getPropertyCacheDataForKVCCompliantObject:(id)somethingRespondingToValueForKey;
