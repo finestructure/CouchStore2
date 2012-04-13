@@ -147,19 +147,19 @@
     [testObject setValue:testDateValue forKey:@"dateValue"];
      */
     
-    NSDecimalNumber *testDecimal = [NSDecimalNumber decimalNumberWithString:@"10.5"];
+    NSDecimalNumber *testDecimal = [NSDecimalNumber decimalNumberWithString:@"10.00000000005"];
     [testObject setValue:testDecimal forKey:@"decimalValue"];
     
-    NSNumber *testDoubleValue = [NSNumber numberWithDouble:5.005];
+    NSNumber *testDoubleValue = [NSNumber numberWithDouble:5.000000001];
     [testObject setValue:testDoubleValue forKey:@"doubleValue"];
     
-    NSNumber *testFloatValue = [NSNumber numberWithFloat:0.005];
+    NSNumber *testFloatValue = [NSNumber numberWithFloat:5.000005];
     [testObject setValue:testFloatValue forKey:@"floatValue"];
     
-    NSNumber *testIntValue = [NSNumber numberWithInt:50];
+    NSNumber *testIntValue = [NSNumber numberWithInt:5000];
     [testObject setValue:testIntValue forKey:@"intValue"];
     
-    NSNumber *testLongValue = [NSNumber numberWithLong:500];
+    NSNumber *testLongValue = [NSNumber numberWithLong:5000000];
     [testObject setValue:testLongValue forKey:@"longValue"];
     
     NSNumber *testShortValue = [NSNumber numberWithShort:5];
