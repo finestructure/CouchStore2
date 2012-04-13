@@ -14,6 +14,9 @@
 - (void)setUp
 {
     [super setUp];
+    // first, make sure there are no left overt things in the db
+    [CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
+
     //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
     //model = [NSManagedObjectModel mergedModelFromBundles:nil];
     model = [[NSManagedObjectModel alloc] init];
@@ -23,7 +26,9 @@
     [entity setName:@"testData"];
     [entity setManagedObjectClassName:@"testData"];
     NSMutableArray *testProperties = [NSMutableArray array];
+    
     /*
+    // fails with "invalid type in JSON write..."
     NSAttributeDescription *testDataAttribute = [[NSAttributeDescription alloc] init];	
 	[testProperties addObject:testDataAttribute];	
 	[testDataAttribute setName:@"binaryValue"];
@@ -110,9 +115,11 @@
     
     id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
     
-   /* NSData *testData = [@"binary test data" dataUsingEncoding:NSASCIIStringEncoding];
+    /*
+    NSData *testData = [@"binary test data" dataUsingEncoding:NSASCIIStringEncoding];
     [testObject setValue:testData forKey:@"binaryValue"];
-    */
+     */
+    
     NSNumber *testBoolValue = [NSNumber numberWithBool:1];
     [testObject setValue:testBoolValue forKey:@"boolValue"];
 /*
