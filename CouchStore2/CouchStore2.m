@@ -41,7 +41,7 @@
     
     //CouchServer *server = [[CouchServer alloc] initWithURL:[NSURL URLWithString:@"http://ucouchbase.local:5984"]];
     CouchServer *server = [[CouchServer alloc] initWithURL:url];
-    database = [server databaseNamed: @"storetest"];
+    database = [server databaseNamed: @"storeunittest"];
     
     // drop database?
 #if 0
@@ -86,7 +86,7 @@
         NSMutableDictionary *setProps = [NSMutableDictionary dictionary];
         [setProps addEntriesFromDictionary:[props valueForKey:@"values"]];
         [setProps addEntriesFromDictionary:[props valueForKey:@"relations"]];
-        [newNode setPropertyCacheData: setProps];
+        //[newNode setPropertyCacheData: setProps];
         NSLog(@"props %@", props);
         [newNode setRevId:[props valueForKey:@"_rev"]];
 		[cacheNodes addObject: newNode];

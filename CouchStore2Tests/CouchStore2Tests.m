@@ -55,7 +55,7 @@
     NSError *error=nil;
     store = [coord addPersistentStoreWithType:@"CouchStore"
      configuration:nil
-     URL:[NSURL URLWithString: @"http://ucouchbase.local:5984/storeunittests"]
+     URL:[NSURL URLWithString: @"http://ucouchbase.local:5984"]
      options:nil
      error:&error];
     NSLog(@"error %@", error);
@@ -80,6 +80,19 @@
     model = nil;
     //[super tearDown];
     
+#if 0
+    // manually drop database
+    CouchServer *server = [[CouchServer alloc] initWithURL:[NSURL URLWithString:@"http://ucouchbase.local:5984"]];
+    //CouchServer *server = [[CouchServer alloc] initWithURL:url];
+    CouchDatabase * database = [server databaseNamed: @"storeunittest"];
+    
+    RESTOperation *op1=[database drop];
+    if (![op1 wait]) 
+    {
+        NSLog( @"Error creating database: %@", op1.error);
+    };
+#endif
+    
     [super tearDown];
 }
 
@@ -96,9 +109,9 @@
     
     id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
     
-    NSData *testData = [@"binary test data" dataUsingEncoding:NSASCIIStringEncoding];
+   /* NSData *testData = [@"binary test data" dataUsingEncoding:NSASCIIStringEncoding];
     [testObject setValue:testData forKey:@"binaryValue"];
-    
+    */
     NSNumber *testBoolValue = [NSNumber numberWithBool:1];
     [testObject setValue:testBoolValue forKey:@"boolValue"];
 /*
@@ -123,10 +136,9 @@ NSNumber *testLongValue = [NSNumber numberWithLong:500];
 NSNumber *testShortValue = [NSNumber numberWithShort:5];
 [testObject setValue:testShortValue forKey:@"shortValue"];
 */
-    NSLog(@"testObject %@", testObject);
     NSString *testStringValue = @"test string value";
     [testObject setValue:testStringValue forKey:@"stringValue"];
-    NSLog(@"after setValue");
+    NSLog(@"after setValue %@", testObject);
 /*
 [testObject setValue:@"test transient string value" forKey:@"transientString"];
 */
