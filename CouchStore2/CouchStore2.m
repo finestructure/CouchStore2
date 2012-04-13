@@ -32,13 +32,15 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *fileURL = [self URL];
 	NSString *filePath = [fileURL path];
-	
+#if 0
 	BOOL success = [fileManager createFileAtPath:filePath contents:nil attributes:nil];
 	if (!success) {
 		return Nil;
 	}
+#endif
     
-    CouchServer *server = [[CouchServer alloc] initWithURL:[NSURL URLWithString:@"http://ucouchbase.local:5984"]];
+    //CouchServer *server = [[CouchServer alloc] initWithURL:[NSURL URLWithString:@"http://ucouchbase.local:5984"]];
+    CouchServer *server = [[CouchServer alloc] initWithURL:url];
     database = [server databaseNamed: @"storetest"];
     
     // drop database?

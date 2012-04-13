@@ -17,6 +17,8 @@
 		DD36DCD21536E7EF00DAD320 /* CouchCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
 		DD36DCD61536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = DD36DCD51536E80A00DAD320 /* AtomicStoreCacheNodeSubclass.m */; };
 		DD36DCDC1536EDAA00DAD320 /* CouchCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
+		DD36DCE9153717D800DAD320 /* CouchStore2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36DCA11536E7A500DAD320 /* CouchStore2.framework */; };
+		DD36DCEC15371D8800DAD320 /* CouchCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,16 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DD36DCDC1536EDAA00DAD320 /* CouchCocoa.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD36DCEA15371D5B00DAD320 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				DD36DCEC15371D8800DAD320 /* CouchCocoa.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD36DCE9153717D800DAD320 /* CouchStore2.framework in Frameworks */,
 				DD36DCBB1536E7A500DAD320 /* SenTestingKit.framework in Frameworks */,
 				DD36DCBC1536E7A500DAD320 /* Cocoa.framework in Frameworks */,
 			);
@@ -206,6 +219,7 @@
 				DD36DCB41536E7A500DAD320 /* Sources */,
 				DD36DCB51536E7A500DAD320 /* Frameworks */,
 				DD36DCB61536E7A500DAD320 /* Resources */,
+				DD36DCEA15371D5B00DAD320 /* CopyFiles */,
 				DD36DCB71536E7A500DAD320 /* ShellScript */,
 			);
 			buildRules = (

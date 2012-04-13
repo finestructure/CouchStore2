@@ -13,5 +13,6 @@
   NSManagedObjectContext *ctx;
   NSManagedObjectModel *model;
   NSPersistentStore *store;
+  NSEntityDescription *entity; 
 }
 @end
