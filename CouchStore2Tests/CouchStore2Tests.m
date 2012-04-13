@@ -93,23 +93,19 @@
 
     [entity setProperties:testProperties];
     
-    NSLog(@"testData entity description %@", entity);
     [model setEntities:[NSArray arrayWithObject:entity]];
 
     
-    NSLog(@"model %@", model);
     [NSPersistentStoreCoordinator registerStoreClass:[CouchStore class] forStoreType:@"CouchStore"];
     coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     NSError *error=nil;
     store = [coord addPersistentStoreWithType:@"CouchStore"
-     configuration:nil
-     URL:[NSURL URLWithString: @"http://ucouchbase.local:5984"]
-     options:nil
-     error:&error];
-    NSLog(@"error %@", error);
-    NSLog(@"store %@", store);
-   
-     ctx =[[NSManagedObjectContext alloc] init];
+                                configuration:nil
+                                          URL:[NSURL URLWithString: @"http://ucouchbase.local:5984"]
+                                      options:nil
+                                        error:&error];
+    
+    ctx =[[NSManagedObjectContext alloc] init];
     [ctx setPersistentStoreCoordinator:coord];
     
 }
@@ -125,18 +121,6 @@
     model = nil;
     
     [CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
-#if 0
-    // manually drop database
-    CouchServer *server = [[CouchServer alloc] initWithURL:[NSURL URLWithString:@"http://ucouchbase.local:5984"]];
-    //CouchServer *server = [[CouchServer alloc] initWithURL:url];
-    CouchDatabase * database = [server databaseNamed: @"storeunittest"];
-    
-    RESTOperation *op1=[database drop];
-    if (![op1 wait]) 
-    {
-        NSLog( @"Error creating database: %@", op1.error);
-    };
-#endif
     
     [super tearDown];
 }
@@ -196,7 +180,6 @@
 #if 1
     NSLog(@"bring up a second stack");
     NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    //[self addTestStoreToCoordinator:stack2];
     NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
     [context2 setPersistentStoreCoordinator:stack2];
     [stack2 addPersistentStoreWithType:@"CouchStore"
@@ -206,10 +189,8 @@
                                         error:nil];
     
     NSArray *results2 = [context2 executeFetchRequest:request error:nil];
-    NSLog(@"result count %@", results2 );
     STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
     id testObject2 = [results2 objectAtIndex:0];
-    NSLog(@"testObject2 %@", testObject2);
     
     //STAssertEqualObjects([testObject2 valueForKey:@"binaryValue"], testData, @"Stored and retreived data not equal");
     
