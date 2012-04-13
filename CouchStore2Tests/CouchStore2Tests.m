@@ -37,7 +37,7 @@
 	[testProperties addObject:testBoolAttribute];	
 	[testBoolAttribute setName:@"boolValue"];
 	[testBoolAttribute setAttributeType:NSBooleanAttributeType];
-	[testBoolAttribute setOptional:NO];
+	[testBoolAttribute setOptional:YES];
 
     NSAttributeDescription *testStringAttribute = [[NSAttributeDescription alloc] init];	
 	[testProperties addObject:testStringAttribute];	
@@ -125,6 +125,20 @@
     [super tearDown];
 }
 
+- (NSManagedObjectContext*) generateStack
+{
+   NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+   NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
+   [context2 setPersistentStoreCoordinator:stack2];
+   [stack2 addPersistentStoreWithType:@"CouchStore"
+                        configuration:nil
+                                  URL:[NSURL URLWithString: @"http://ucouchbase.local:5984"]
+                              options:nil
+                                error:nil];
+   
+    return context2;
+}
+
 - (void)testBasicRead {    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
@@ -179,6 +193,7 @@
     //
 #if 1
     NSLog(@"bring up a second stack");
+    /*
     NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
     [context2 setPersistentStoreCoordinator:stack2];
@@ -187,6 +202,8 @@
                                           URL:[NSURL URLWithString: @"http://ucouchbase.local:5984"]
                                       options:nil
                                         error:nil];
+     */
+    NSManagedObjectContext *context2=[self generateStack];
     
     NSArray *results2 = [context2 executeFetchRequest:request error:nil];
     STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
