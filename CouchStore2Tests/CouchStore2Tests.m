@@ -23,19 +23,29 @@
     [entity setName:@"testData"];
     [entity setManagedObjectClassName:@"testData"];
     NSMutableArray *testProperties = [NSMutableArray array];
-    
+    /*
     NSAttributeDescription *testDataAttribute = [[NSAttributeDescription alloc] init];	
 	[testProperties addObject:testDataAttribute];	
 	[testDataAttribute setName:@"binaryValue"];
-	[testDataAttribute setAttributeType:NSStringAttributeType];
+	[testDataAttribute setAttributeType:NSBinaryDataAttributeType];
 	[testDataAttribute setOptional:NO];
+    */
     
     NSAttributeDescription *testBoolAttribute = [[NSAttributeDescription alloc] init];	
 	[testProperties addObject:testBoolAttribute];	
-	[testDataAttribute setName:@"boolValue"];
-	[testDataAttribute setAttributeType:NSStringAttributeType];
-	[testDataAttribute setOptional:NO];
+	[testBoolAttribute setName:@"boolValue"];
+	[testBoolAttribute setAttributeType:NSBooleanAttributeType];
+	[testBoolAttribute setOptional:NO];
+
+    NSAttributeDescription *testStringAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testStringAttribute];	
+	[testStringAttribute setName:@"stringValue"];
+	[testStringAttribute setAttributeType:NSStringAttributeType];
+	[testStringAttribute setOptional:YES];
     
+    [entity setProperties:testProperties];
+    
+    NSLog(@"testData entity description %@", entity);
     [model setEntities:[NSArray arrayWithObject:entity]];
 
     
@@ -77,20 +87,20 @@
 //[self addTestStoreToCoordinator:coord];
 //NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
 //[context setPersistentStoreCoordinator:coord];
-
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  [request setEntity:entity];
-
-NSArray *results = [ctx executeFetchRequest:request error:nil];
-STAssertTrue(([results count] == 0), @"Exactly zero TypeTestingEntities should have been fetched");
-
-id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
-
-NSData *testData = [@"binary test data" dataUsingEncoding:NSASCIIStringEncoding];
-[testObject setValue:testData forKey:@"binaryValue"];
-
-NSNumber *testBoolValue = [NSNumber numberWithBool:1];
-[testObject setValue:testBoolValue forKey:@"boolValue"];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    NSArray *results = [ctx executeFetchRequest:request error:nil];
+    STAssertTrue(([results count] == 0), @"Exactly zero TypeTestingEntities should have been fetched");
+    
+    id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
+    
+    NSData *testData = [@"binary test data" dataUsingEncoding:NSASCIIStringEncoding];
+    [testObject setValue:testData forKey:@"binaryValue"];
+    
+    NSNumber *testBoolValue = [NSNumber numberWithBool:1];
+    [testObject setValue:testBoolValue forKey:@"boolValue"];
 /*
 NSDate *testDateValue = [NSDate dateWithNaturalLanguageString:@"10/10/2006"];
 [testObject setValue:testDateValue forKey:@"dateValue"];
@@ -112,10 +122,12 @@ NSNumber *testLongValue = [NSNumber numberWithLong:500];
 
 NSNumber *testShortValue = [NSNumber numberWithShort:5];
 [testObject setValue:testShortValue forKey:@"shortValue"];
-
-NSNumber *testStringValue = @"test string value";
-[testObject setValue:testStringValue forKey:@"stringValue"];
-
+*/
+    NSLog(@"testObject %@", testObject);
+    NSString *testStringValue = @"test string value";
+    [testObject setValue:testStringValue forKey:@"stringValue"];
+    NSLog(@"after setValue");
+/*
 [testObject setValue:@"test transient string value" forKey:@"transientString"];
 */
 NSError *error = nil;
@@ -124,6 +136,7 @@ STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", erro
 //
 // bring up a second stack to check what we saved
 //
+#if 0
 NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
 //[self addTestStoreToCoordinator:stack2];
 NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
@@ -132,9 +145,10 @@ NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
 NSArray *results2 = [context2 executeFetchRequest:request error:nil];
 STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
 id testObject2 = [results2 objectAtIndex:0];
-
+/*
 STAssertEqualObjects([testObject2 valueForKey:@"binaryValue"], testData, @"Stored and retreived data not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"boolValue"], testBoolValue, @"Stored and retreived boolValue not equal");
+*/
+    STAssertEqualObjects([testObject2 valueForKey:@"boolValue"], testBoolValue, @"Stored and retreived boolValue not equal");
 /*STAssertEqualObjects([testObject2 valueForKey:@"dateValue"], testDateValue, @"Stored and retreived dateValue not equal");
 STAssertEqualObjects([testObject2 valueForKey:@"decimalValue"], testDecimal, @"Stored and retreived decimalValue not equal");
 STAssertEqualObjects([testObject2 valueForKey:@"doubleValue"], testDoubleValue, @"Stored and retreived doubleValue not equal");
@@ -147,7 +161,7 @@ STAssertTrue(([testObject2 valueForKey:@"transientString"] == nil), @"transient 
 */
 [context2 deleteObject:testObject2];
 STAssertTrue([context2 save:&error], @"Couldn't save deletion of test object because of %@", error);
-
+#endif
 //[context2 release];
 //[stack2 release];
 
