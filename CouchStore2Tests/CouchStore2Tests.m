@@ -44,7 +44,53 @@
 	[testStringAttribute setName:@"stringValue"];
 	[testStringAttribute setAttributeType:NSStringAttributeType];
 	[testStringAttribute setOptional:YES];
+   
+    /*
+    // fails with "invalid type in JSON write..."
+    NSAttributeDescription *testDateAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testDateAttribute];	
+	[testDateAttribute setName:@"dateValue"];
+	[testDateAttribute setAttributeType:NSDateAttributeType];
+	[testDateAttribute setOptional:YES];
+     */
+
+    NSAttributeDescription *testDecimalAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testDecimalAttribute];	
+	[testDecimalAttribute setName:@"decimalValue"];
+	[testDecimalAttribute setAttributeType:NSDecimalAttributeType];
+	[testDecimalAttribute setOptional:YES];
     
+    NSAttributeDescription *testDoubleAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testDoubleAttribute];	
+	[testDoubleAttribute setName:@"doubleValue"];
+	[testDoubleAttribute setAttributeType:NSDoubleAttributeType];
+	[testDoubleAttribute setOptional:YES];
+    
+    
+    NSAttributeDescription *testFloatAttribute = [[NSAttributeDescription alloc] init];	
+    [testProperties addObject:testFloatAttribute];	
+    [testFloatAttribute setName:@"floatValue"];
+    [testFloatAttribute setAttributeType:NSFloatAttributeType];
+    [testFloatAttribute setOptional:YES];
+
+    NSAttributeDescription *testIntAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testIntAttribute];	
+	[testIntAttribute setName:@"intValue"];
+	[testIntAttribute setAttributeType:NSInteger16AttributeType];
+	[testIntAttribute setOptional:YES];
+
+    NSAttributeDescription *testLongAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testLongAttribute];	
+	[testLongAttribute setName:@"longValue"];
+	[testLongAttribute setAttributeType:NSInteger64AttributeType];
+	[testLongAttribute setOptional:YES];
+
+    NSAttributeDescription *testShortAttribute = [[NSAttributeDescription alloc] init];	
+	[testProperties addObject:testShortAttribute];	
+	[testShortAttribute setName:@"shortValue"];
+	[testShortAttribute setAttributeType:NSInteger16AttributeType];
+	[testShortAttribute setOptional:YES];
+
     [entity setProperties:testProperties];
     
     NSLog(@"testData entity description %@", entity);
@@ -70,17 +116,13 @@
 
 - (void)tearDown
 {
-    //[ctx release];
     ctx=nil;
     NSError *error = nil;
     STAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@",error);
     store = nil;
-    //[coord release];
     coord = nil;
-    //[model release];
     model = nil;
-    //[super tearDown];
     
     [CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
 #if 0
@@ -115,40 +157,42 @@
     
     NSNumber *testBoolValue = [NSNumber numberWithBool:1];
     [testObject setValue:testBoolValue forKey:@"boolValue"];
-/*
-NSDate *testDateValue = [NSDate dateWithNaturalLanguageString:@"10/10/2006"];
-[testObject setValue:testDateValue forKey:@"dateValue"];
 
-NSDecimalNumber *testDecimal = [NSDecimalNumber decimalNumberWithString:@"10.5"];
-[testObject setValue:testDecimal forKey:@"decimalValue"];
+    /*
+    NSDate *testDateValue = [NSDate dateWithNaturalLanguageString:@"10/10/2006"];
+    [testObject setValue:testDateValue forKey:@"dateValue"];
+     */
+    
+    NSDecimalNumber *testDecimal = [NSDecimalNumber decimalNumberWithString:@"10.5"];
+    [testObject setValue:testDecimal forKey:@"decimalValue"];
+    
+    NSNumber *testDoubleValue = [NSNumber numberWithDouble:5.005];
+    [testObject setValue:testDoubleValue forKey:@"doubleValue"];
+    
+    NSNumber *testFloatValue = [NSNumber numberWithFloat:0.005];
+    [testObject setValue:testFloatValue forKey:@"floatValue"];
+    
+    NSNumber *testIntValue = [NSNumber numberWithInt:50];
+    [testObject setValue:testIntValue forKey:@"intValue"];
+    
+    NSNumber *testLongValue = [NSNumber numberWithLong:500];
+    [testObject setValue:testLongValue forKey:@"longValue"];
+    
+    NSNumber *testShortValue = [NSNumber numberWithShort:5];
+    [testObject setValue:testShortValue forKey:@"shortValue"];
 
-NSNumber *testDoubleValue = [NSNumber numberWithDouble:5.005];
-[testObject setValue:testDoubleValue forKey:@"doubleValue"];
-
-NSNumber *testFloatValue = [NSNumber numberWithFloat:0.005];
-[testObject setValue:testFloatValue forKey:@"floatValue"];
-
-NSNumber *testIntValue = [NSNumber numberWithInt:50];
-[testObject setValue:testIntValue forKey:@"intValue"];
-
-NSNumber *testLongValue = [NSNumber numberWithLong:500];
-[testObject setValue:testLongValue forKey:@"longValue"];
-
-NSNumber *testShortValue = [NSNumber numberWithShort:5];
-[testObject setValue:testShortValue forKey:@"shortValue"];
-*/
     NSString *testStringValue = @"test string value";
     [testObject setValue:testStringValue forKey:@"stringValue"];
     NSLog(@"after setValue %@", testObject);
-/*
-[testObject setValue:@"test transient string value" forKey:@"transientString"];
-*/
-NSError *error = nil;
-STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
-
-//
-// bring up a second stack to check what we saved
-//
+    /*
+     [testObject setValue:@"test transient string value" forKey:@"transientString"];
+     */
+    NSError *error = nil;
+    STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
+    
+    //
+    // bring up a second stack to check what we saved
+    //
 #if 1
     NSLog(@"bring up a second stack");
     NSPersistentStoreCoordinator *stack2 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
@@ -166,26 +210,24 @@ STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", erro
     STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
     id testObject2 = [results2 objectAtIndex:0];
     NSLog(@"testObject2 %@", testObject2);
-    /*
-     STAssertEqualObjects([testObject2 valueForKey:@"binaryValue"], testData, @"Stored and retreived data not equal");
-*/
+    
+    //STAssertEqualObjects([testObject2 valueForKey:@"binaryValue"], testData, @"Stored and retreived data not equal");
+    
     STAssertEqualObjects([testObject2 valueForKey:@"boolValue"], testBoolValue, @"Stored and retreived boolValue not equal");
-/*STAssertEqualObjects([testObject2 valueForKey:@"dateValue"], testDateValue, @"Stored and retreived dateValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"decimalValue"], testDecimal, @"Stored and retreived decimalValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"doubleValue"], testDoubleValue, @"Stored and retreived doubleValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"floatValue"], testFloatValue, @"Stored and retreived floatValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"intValue"], testIntValue, @"Stored and retreived intValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"longValue"], testLongValue, @"Stored and retreived longValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"shortValue"], testShortValue, @"Stored and retreived shortValue not equal");
-STAssertEqualObjects([testObject2 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
-STAssertTrue(([testObject2 valueForKey:@"transientString"] == nil), @"transient string value should not have been stored");        
-*/
-[context2 deleteObject:testObject2];
-STAssertTrue([context2 save:&error], @"Couldn't save deletion of test object because of %@", error);
+    // STAssertEqualObjects([testObject2 valueForKey:@"dateValue"], testDateValue, @"Stored and retreived dateValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"decimalValue"], testDecimal, @"Stored and retreived decimalValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"doubleValue"], testDoubleValue, @"Stored and retreived doubleValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"floatValue"], testFloatValue, @"Stored and retreived floatValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"intValue"], testIntValue, @"Stored and retreived intValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"longValue"], testLongValue, @"Stored and retreived longValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"shortValue"], testShortValue, @"Stored and retreived shortValue not equal");
+    STAssertEqualObjects([testObject2 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
+    /*
+     STAssertTrue(([testObject2 valueForKey:@"transientString"] == nil), @"transient string value should not have been stored");        
+     */
+    [context2 deleteObject:testObject2];
+    STAssertTrue([context2 save:&error], @"Couldn't save deletion of test object because of %@", error);
 #endif
-//[context2 release];
-//[stack2 release];
-
 }
 
 - (void)testExample
