@@ -211,6 +211,8 @@
                 *error = op.error;
             return NO;
         }
+        // update revision
+        [node setRevId:[[doc properties] valueForKey:@"_rev"]];
         
     }
     return YES; //FIXME report errors
