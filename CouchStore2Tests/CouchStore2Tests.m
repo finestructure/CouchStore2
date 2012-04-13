@@ -290,7 +290,7 @@
     
     STAssertEqualObjects([testObject2 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
     
-    // change and write with first context again 
+    // change and write with first context again, needs correct revision id without reading it explicitly
     testStringValue = @"changed test string value";
     [testObject setValue:testStringValue forKey:@"stringValue"];
     STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
@@ -303,5 +303,48 @@
     
     STAssertEqualObjects([testObject3 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
     
+}
+
+- (void)testWriteAddEntityWrite
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    NSArray *results = [ctx executeFetchRequest:request error:nil];
+    STAssertTrue(([results count] == 0), @"Exactly zero TypeTestingEntities should have been fetched");
+    
+    id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
+    
+    NSString *testStringValue = @"test string value";
+    [testObject setValue:testStringValue forKey:@"stringValue"];
+    NSError *error = nil;
+    STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
+    
+    // read back
+    NSManagedObjectContext *context2=[self generateStack];
+    
+    NSArray *results2 = [context2 executeFetchRequest:request error:nil];
+    STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
+    id testObject2 = [results2 objectAtIndex:0];
+    
+    STAssertEqualObjects([testObject2 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
+    
+    // add another object
+    id testSecondObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
+
+    NSString *testSecondStringValue = @"second test string value";
+    [testSecondObject setValue:testSecondStringValue forKey:@"stringValue"];
+    STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
+    
+    // read back once more
+    NSManagedObjectContext *context3=[self generateStack];
+    NSArray *results3 = [context3 executeFetchRequest:request error:nil];
+    STAssertTrue(([results3 count] == 2), @"Exactly 2 TypeTestingEntities should have been fetched");
+    
+    id testObject3 = [results3 objectAtIndex:0];
+    STAssertEqualObjects([testObject3 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
+    
+    id testSecondObject3 = [results3 objectAtIndex:1];
+    STAssertEqualObjects([testSecondObject3 valueForKey:@"stringValue"], testSecondStringValue, @"Stored and retreived stringValue not equal");
 }
 @end
