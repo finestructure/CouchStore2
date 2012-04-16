@@ -6,8 +6,19 @@
 //  Copyright (c) 2012 abstracture GmbH & Co. KG. All rights reserved.
 //
 
-#import "CouchStore2Tests.h"
 #import "CouchStore2.h"
+#import <SenTestingKit/SenTestingKit.h>
+
+@interface CouchStore2Tests : SenTestCase {
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
+    NSEntityDescription *entity; 
+    NSEntityDescription *relEntity;
+}
+@end
+
 
 @implementation CouchStore2Tests
 
@@ -94,6 +105,12 @@
     [entity setProperties:testProperties];
     
     [model setEntities:[NSArray arrayWithObject:entity]];
+    
+    relEntity = [[NSEntityDescription alloc] init];
+    [relEntity setName:@"testRel"];
+    [relEntity setManagedObjectClassName:@"testRel"];
+    NSMutableArray *testRelProperties = [NSMutableArray array];
+    
 
     
     [NSPersistentStoreCoordinator registerStoreClass:[CouchStore class] forStoreType:@"CouchStore"];

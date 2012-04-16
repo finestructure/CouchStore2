@@ -69,7 +69,6 @@
 		DD36DCBA1536E7A500DAD320 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DD36DCC21536E7A500DAD320 /* CouchStore2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CouchStore2Tests-Info.plist"; sourceTree = "<group>"; };
 		DD36DCC41536E7A500DAD320 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DD36DCC61536E7A500DAD320 /* CouchStore2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouchStore2Tests.h; sourceTree = "<group>"; };
 		DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouchStore2Tests.m; sourceTree = "<group>"; };
 		DD36DCD11536E7EF00DAD320 /* CouchCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchCocoa.framework; sourceTree = "<group>"; };
 		DD36DCD31536E80300DAD320 /* AtomicStoreCacheNodeSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicStoreCacheNodeSubclass.h; sourceTree = "<group>"; };
@@ -164,7 +163,6 @@
 		DD36DCC01536E7A500DAD320 /* CouchStore2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DD36DCC61536E7A500DAD320 /* CouchStore2Tests.h */,
 				DD36DCC71536E7A500DAD320 /* CouchStore2Tests.m */,
 				DD36DCC11536E7A500DAD320 /* Supporting Files */,
 			);
@@ -474,6 +472,7 @@
 				DD36DCCD1536E7A500DAD320 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DD36DCCE1536E7A500DAD320 /* Build configuration list for PBXNativeTarget "CouchStore2Tests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +481,7 @@
 				DD36DCD01536E7A500DAD320 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
