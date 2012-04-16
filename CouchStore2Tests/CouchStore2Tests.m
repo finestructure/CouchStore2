@@ -26,9 +26,24 @@
 {
     [super setUp];
     // first, make sure there are no left overt things in the db
-    //[CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
+    [CouchStore dropDatabase:[NSURL URLWithString: @"http://ucouchbase.local:5984"]];
 
     model = [[NSManagedObjectModel alloc] init];
+    NSMutableArray *entities=[[NSMutableArray alloc] init ];
+  
+    relEntity = [[NSEntityDescription alloc] init];
+    [relEntity setName:@"testRel"];
+    [relEntity setManagedObjectClassName:@"testRel"];
+    NSMutableArray *testRelProperties = [NSMutableArray array];
+    
+    NSAttributeDescription *testRelStringAttribute = [[NSAttributeDescription alloc] init];	
+	[testRelProperties addObject:testRelStringAttribute];	
+	[testRelStringAttribute setName:@"stringValue"];
+	[testRelStringAttribute setAttributeType:NSStringAttributeType];
+	[testRelStringAttribute setOptional:YES];
+    
+    [relEntity setProperties:testRelProperties];
+    [entities addObject:relEntity];
     
     entity = [[NSEntityDescription alloc] init];
     [entity setName:@"testData"];
@@ -101,18 +116,21 @@
 	[testShortAttribute setName:@"shortValue"];
 	[testShortAttribute setAttributeType:NSInteger16AttributeType];
 	[testShortAttribute setOptional:YES];
+    
+    NSRelationshipDescription *testOneRelation = [[NSRelationshipDescription alloc] init];
+    [testProperties addObject:testOneRelation];
+    [testOneRelation setName:@"oneRelation"];
+    [testOneRelation setDestinationEntity:relEntity];
 
     [entity setProperties:testProperties];
-    
-    [model setEntities:[NSArray arrayWithObject:entity]];
-    
-    relEntity = [[NSEntityDescription alloc] init];
-    [relEntity setName:@"testRel"];
-    [relEntity setManagedObjectClassName:@"testRel"];
-    NSMutableArray *testRelProperties = [NSMutableArray array];
+
+    [entities addObject:entity];
     
 
-    
+    //[model setEntities:[NSArray arrayWithObject:relEntity]];
+
+    [model setEntities:entities];
+
     [NSPersistentStoreCoordinator registerStoreClass:[CouchStore class] forStoreType:@"CouchStore"];
     coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     NSError *error=nil;
@@ -364,4 +382,22 @@
     id testSecondObject3 = [results3 objectAtIndex:1];
     STAssertEqualObjects([testSecondObject3 valueForKey:@"stringValue"], testSecondStringValue, @"Stored and retreived stringValue not equal");
 }
+
+- (void)testRelation
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    NSArray *results = [ctx executeFetchRequest:request error:nil];
+    STAssertTrue(([results count] == 0), @"Exactly zero TypeTestingEntities should have been fetched");
+    
+    id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
+    
+    NSString *testStringValue = @"test string value";
+    [testObject setValue:testStringValue forKey:@"stringValue"];
+    NSError *error = nil;
+    STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
+}
+
+
 @end
