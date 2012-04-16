@@ -371,6 +371,9 @@
     [testSecondObject setValue:testSecondStringValue forKey:@"stringValue"];
     STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
     
+    // avoids race conditions, there maybe a better solution
+    sleep(1);
+    
     // read back once more
     NSManagedObjectContext *context3=[self generateStack];
     NSArray *results3 = [context3 executeFetchRequest:request error:nil];
@@ -385,6 +388,7 @@
 
 - (void)testRelation
 {
+    NSLog(@"****  testRelation");
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
@@ -392,11 +396,31 @@
     STAssertTrue(([results count] == 0), @"Exactly zero TypeTestingEntities should have been fetched");
     
     id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
+    id testRelObject = [[NSManagedObject alloc] initWithEntity:relEntity insertIntoManagedObjectContext:ctx];
     
     NSString *testStringValue = @"test string value";
     [testObject setValue:testStringValue forKey:@"stringValue"];
+    [testObject setValue:[NSSet setWithObject:testRelObject] forKey:@"oneRelation"];
+
+    
+    NSString *testRelStringValue =@"test relation string value";
+    [testRelObject setValue:testRelStringValue forKey:@"stringValue"];
+    NSLog(@"testRelObject %@", testRelObject);
+    
     NSError *error = nil;
     STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
+    
+    // read back
+    NSManagedObjectContext *context2=[self generateStack];
+    
+    NSArray *results2 = [context2 executeFetchRequest:request error:nil];
+    STAssertTrue(([results2 count] == 1), @"Exactly 1 TypeTestingEntities should have been fetched");
+    id testObject2 = [results2 objectAtIndex:0];
+    
+    STAssertEqualObjects([testObject2 valueForKey:@"stringValue"], testStringValue, @"Stored and retreived stringValue not equal");
+    NSLog(@"testObject2 %@", [testObject2 valueForKey:@"oneRelation"]);
+//    NSLog(@"testObject2 %@", [testObject2 oneRelation]);
+
 }
 
 
