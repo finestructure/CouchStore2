@@ -389,6 +389,8 @@
 - (void)testRelation
 {
     NSLog(@"****  testRelation");
+    NSError *error = nil;
+
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
@@ -397,6 +399,8 @@
     
     id testObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:ctx];
     id testRelObject = [[NSManagedObject alloc] initWithEntity:relEntity insertIntoManagedObjectContext:ctx];
+    NSLog(@"testRelObject oid %@", [testRelObject objectID]);
+    STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
     
     NSString *testStringValue = @"test string value";
     [testObject setValue:testStringValue forKey:@"stringValue"];
@@ -407,8 +411,9 @@
     [testRelObject setValue:testRelStringValue forKey:@"stringValue"];
     NSLog(@"testRelObject %@", testRelObject);
     
-    NSError *error = nil;
     STAssertTrue([ctx save:&error], @"Couldn't save test object because of %@", error);
+    NSLog(@"testRelObject oid %@", [testRelObject objectID]);
+
     
     // read back
     NSManagedObjectContext *context2=[self generateStack];
